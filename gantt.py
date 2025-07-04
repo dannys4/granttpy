@@ -11,9 +11,6 @@ import matplotlib.pyplot as plt
 from matplotlib.axes._axes import Axes as AxisType
 from matplotlib.colors import to_rgba
 
-#
-import numpy as np
-
 # %%
 
 
@@ -337,7 +334,7 @@ def get_limits(data):
 
 
 # %%
-def create_Gantt_chart(data: list[GanttElement], figsize_or_ax: float | tuple[float] | AxisType, fontsize=12):
+def chart(data: list[GanttElement], figsize_or_ax: float | tuple[float] | AxisType, fontsize=12):
     """
 
     This function creates a Gantt Chart based on a dictionary of dictionaries
@@ -383,17 +380,3 @@ def create_Gantt_chart(data: list[GanttElement], figsize_or_ax: float | tuple[fl
         return
 
     return fig, ax
-
-
-"""
-lw : scalar, optional
-    The width of the Gantt chart's bars. The default is 25.
-markersize : scalar, optional
-    The size of marker elements in the Gantt chart. The default is 750.
-level_increment : scalar, optional
-    The vertical displacement between subsequent elements in the data 
-    dictionary. The default is 0.5.
-span_edge_height : scalar, optional
-    The height of the vertical bars at the end of a span element. The 
-    default is 0.2.
-"""

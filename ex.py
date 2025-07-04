@@ -518,7 +518,7 @@ data = milestone_data + wp1_data + wp2_data + wp3_data + wp4_data + wp5_data
 
 # %%
 
-fig, ax = gantt.create_Gantt_chart(data, (12, 10), fontsize=fontsize)
+fig, ax = gantt.chart(data, (12, 10), fontsize=fontsize)
 
 # Only label each full year
 ticklabels = ["Start", "", "", "", "Year 1", "", "", "",
