@@ -1,15 +1,18 @@
 # %%
-import matplotlib.pyplot as plt
-
-import matplotlib
+# Pkgs avail in default py
+from copy import deepcopy
 from enum import Enum
-import numpy as np
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from matplotlib.colors import to_rgba
-from copy import deepcopy
 
+# Plotting
+import matplotlib
+import matplotlib.pyplot as plt
 from matplotlib.axes._axes import Axes as AxisType
+from matplotlib.colors import to_rgba
+
+#
+import numpy as np
 
 # %%
 
@@ -83,8 +86,8 @@ def get_text_align(align_str: str):
 def determine_textcolor(background_color: str, alignment: TextAlignment):
     if alignment == TextAlignment.RIGHT:
         return 'k'
-    rgba = np.asarray(to_rgba(background_color))
-    rgb = rgba[:3] + (1 - rgba[:3])*(1-rgba[3])
+    rgba = list(to_rgba(background_color))
+    rgb = [c + (1-c)*(1-rgba[3]) for c in rgba[:3]]
     luminance = 0.2126*rgb[0] + 0.7152*rgb[1] + 0.0722*rgb[2]
     if luminance < LUMINANCE_THRESHOLD:
         textcolor = "w"

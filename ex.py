@@ -4,8 +4,9 @@ from datetime import datetime, timedelta
 import gantt
 from gantt import GanttSpan, GanttEvent, GanttPeriod
 
-gantt.DEFAULT_MARKERSIZE = 80
-gantt.DEFAULT_LINEWIDTH = 10
+gantt.set_default_markersize(80)
+gantt.set_default_linewidth(10)
+gantt.set_luminance_threshold(0.8)
 
 neg15day = timedelta(days=-15)
 pos15day = timedelta(days=15)
@@ -19,7 +20,8 @@ blue = "#0070C0"
 orange = "#E97132"
 gray = "#4D4D4D"
 
-local_lw = 8
+fontsize = 10
+local_lw = fontsize + 1  # Increase this with font size to ensure Periods cover text
 
 # %%
 
@@ -516,7 +518,7 @@ data = milestone_data + wp1_data + wp2_data + wp3_data + wp4_data + wp5_data
 
 # %%
 
-fig, ax = gantt.create_Gantt_chart(data, (12, 7), fontsize=8)
+fig, ax = gantt.create_Gantt_chart(data, (12, 10), fontsize=fontsize)
 
 # Only label each full year
 ticklabels = ["Start", "", "", "", "Year 1", "", "", "",
