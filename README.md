@@ -2,7 +2,7 @@
 
 ## When you want to make a Gantt chart look nice for a grant or whatever
 
-![Example Gantt chart][example]
+![Example Gantt chart](https://raw.githubusercontent.com/dannys4/granttpy/main/examples/example.png)
 
 ## Installation
 
@@ -53,5 +53,3 @@ There are several defaults that you can customize using `Gantt.set_X`, where `X`
 - `textcolor`: default textcolor for all elements
 - `span_edge_height`: default height of the edge brackets for `grantt.Span` elements
 - `luminance_threshold`: the threshold for automatically switching between white and black text in `grantt.Period` elements based on their color.
-
-[example]: https://github.com/dannys4/granttpy/blob/6ce22000fe45691fd353a08182629ccaf5fa52a9/examples/example.png "Example Gantt chart"
