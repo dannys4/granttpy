@@ -1,7 +1,7 @@
 [project]
 name = "grantt"
-version = "0.1.0"
-description = "Add your description here"
+version = "0.1.1"
+description = "Making Gantt charts in matplotlib"
 readme = "README.md"
 authors = [
     { name = "Maximilian Ramgraber", email = "m.ramgraber@tudelft.nl" },

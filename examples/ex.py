@@ -179,7 +179,8 @@ wp1_data = [
         color=red,
         level_increment=0,
         textalignment=C,
-        marker='.'),
+        marker='.',
+        v_offset=0.3),
 
     grantt.Event(
         text='D1.4',
@@ -195,7 +196,7 @@ wp1_data = [
         date=datetime(2027, 9, 1),
         color=red,
         level_increment=0.75,
-        textalignment=R,
+        textalignment=L,
         offset=neg15day,
         marker='.'),
 ]
@@ -483,7 +484,8 @@ wp5_data = [
         textalignment=C,
         offset=timedelta(days=0),
         marker=".",
-        level_increment=0),
+        level_increment=0,
+        v_offset=-0.25),
 
     grantt.Event(
         text="D5.3",

@@ -104,8 +104,9 @@ class Element:
     zorder_delta: float
     text: str
     offset: timedelta
+    v_offset: float
 
-    def __init__(self, text: str, color: str, textalignment: str = 'center', zorder_delta: float = 0., textcolor: str = None, level_increment: float = 0.5, offset: timedelta = timedelta(0)):
+    def __init__(self, text: str, color: str, textalignment: str = 'center', zorder_delta: float = 0., textcolor: str = None, level_increment: float = 0.5, offset: timedelta = timedelta(0), v_offset: float = 0.):
         textcolor = textcolor or DEFAULT_TEXTCOLOR
         self.textalignment = get_text_align(textalignment)
         self.textcolor = to_rgba(textcolor)
@@ -117,6 +118,7 @@ class Element:
         self.text = text
         self.offset = offset
         self.zorder_delta = zorder_delta
+        self.v_offset = v_offset
 
 
 @dataclass
@@ -228,7 +230,7 @@ def add_span(fontsize: float, ax: AxisType, level: float, span: Span):
     ax.text(
         (span.end - span.start) /
         2 + span.start,
-        level,
+        level + span.v_offset,
         span.text,
         ha=span.textalignment.value,
         va="center",
@@ -252,7 +254,7 @@ def add_period(fontsize: float, ax: AxisType, level: float, period: Period):
 
     ax.text(
         textpos,
-        level,
+        level + period.v_offset,
         period.text,
         ha=textalignment.value,
         va="center",
@@ -275,7 +277,7 @@ def add_event(fontsize: float, ax: AxisType, level: float, event: Event):
 
     ax.text(
         textpos,
-        level,
+        level + event.v_offset,
         event.text,
         ha=textalignment.value,
         va="center",

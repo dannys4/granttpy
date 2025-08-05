@@ -1,4 +1,4 @@
-# `grantt`
+# Granttpy
 
 ## When you want to make a Gantt chart look nice for a grant or whatever
 
