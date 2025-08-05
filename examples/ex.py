@@ -1,12 +1,12 @@
 # %%
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
-import gantt
-from gantt import GanttSpan, GanttEvent, GanttPeriod
+import grantt
+from grantt import GanttSpan, GanttEvent, GanttPeriod
 
-gantt.set_default_markersize(80)
-gantt.set_default_linewidth(10)
-gantt.set_luminance_threshold(0.8)
+grantt.set_default_markersize(80)
+grantt.set_default_linewidth(10)
+grantt.set_luminance_threshold(0.8)
 
 neg15day = timedelta(days=-15)
 pos15day = timedelta(days=15)
@@ -518,7 +518,7 @@ data = milestone_data + wp1_data + wp2_data + wp3_data + wp4_data + wp5_data
 
 # %%
 
-fig, ax = gantt.chart(data, (12, 10), fontsize=fontsize)
+fig, ax = grantt.chart(data, (12, 10), fontsize=fontsize)
 
 # Only label each full year
 ticklabels = ["Start", "", "", "", "Year 1", "", "", "",
