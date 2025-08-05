@@ -7,13 +7,13 @@
 You can install directly from this repository via
 
 ```bash
-pip install "git+https://github.com/dannys4/granttpy"
+pip install grantt
 ```
 
 As a side-note, we recommend installing with [`uv`](https://docs.astral.sh/uv/) using
 
 ```bash
-uv pip install "git+https://github.com/dannys4/granttpy"
+uv pip install grantt
 ```
 
 ## Example
