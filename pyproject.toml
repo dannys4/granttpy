@@ -1,6 +1,6 @@
 [project]
 name = "grantt"
-version = "0.1.4"
+version = "0.1.5"
 description = "Making Gantt charts in matplotlib"
 readme = "README.md"
 authors = [
