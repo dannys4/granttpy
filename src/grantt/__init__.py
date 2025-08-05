@@ -96,7 +96,7 @@ def determine_textcolor(background_color: str, alignment: TextAlignment):
 
 
 @dataclass
-class GanttElement:
+class Element:
     textalignment: TextAlignment  # alignment of text
     textcolor: tuple[int]  # Color of the text
     elementcolor: tuple[int]  # Color of the element
@@ -120,7 +120,7 @@ class GanttElement:
 
 
 @dataclass
-class GanttSpan(GanttElement):
+class Span(Element):
     start: datetime
     end: datetime
     edge_height: float
@@ -134,7 +134,7 @@ class GanttSpan(GanttElement):
 
 
 @dataclass
-class GanttPeriod(GanttElement):
+class Period(Element):
     start: datetime
     end: datetime
     lw: float
@@ -151,7 +151,7 @@ class GanttPeriod(GanttElement):
 
 
 @dataclass
-class GanttEvent(GanttElement):
+class Event(Element):
     date: datetime
     marker: str
     markersize: float
@@ -203,7 +203,7 @@ def add_quarters(ax: AxisType):
         ax.set_xticklabels(ticks)
 
 
-def add_span(fontsize: float, ax: AxisType, level: float, span: GanttSpan):
+def add_span(fontsize: float, ax: AxisType, level: float, span: Span):
     ax.plot(
         [span.start, span.end],
         [level, level],
@@ -238,7 +238,7 @@ def add_span(fontsize: float, ax: AxisType, level: float, span: GanttSpan):
         zorder=30)
 
 
-def add_period(fontsize: float, ax: AxisType, level: float, period: GanttPeriod):
+def add_period(fontsize: float, ax: AxisType, level: float, period: Period):
     ax.plot(
         [period.start, period.end],
         [level, level],
@@ -261,7 +261,7 @@ def add_period(fontsize: float, ax: AxisType, level: float, period: GanttPeriod)
         zorder=30)
 
 
-def add_event(fontsize: float, ax: AxisType, level: float, event: GanttEvent):
+def add_event(fontsize: float, ax: AxisType, level: float, event: Event):
     ax.scatter(
         event.date,
         level,
@@ -284,7 +284,7 @@ def add_event(fontsize: float, ax: AxisType, level: float, event: GanttEvent):
         zorder=30)
 
 
-def get_textpos_period(element: GanttPeriod):
+def get_textpos_period(element: Period):
     align = element.textalignment
     match align:
         case TextAlignment.CENTER:
@@ -323,18 +323,18 @@ def get_limits(data):
 
         level += increment
 
-        if type(element) is GanttPeriod:
+        if type(element) is Period:
             timeline_min = min(timeline_min, element.start)
             timeline_max = max(timeline_max, element.end)
 
-        elif type(element) is GanttEvent:
+        elif type(element) is Event:
             timeline_min = min(timeline_min, element.date)
             timeline_max = max(timeline_max, element.date)
     return zlevel_min, zlevel_max, timeline_min, timeline_max
 
 
 # %%
-def chart(data: list[GanttElement], figsize_or_ax: float | tuple[float] | AxisType, fontsize=12):
+def chart(data: list[Element], figsize_or_ax: float | tuple[float] | AxisType, fontsize=12):
     """
 
     This function creates a Gantt Chart based on a dictionary of dictionaries
@@ -363,13 +363,13 @@ def chart(data: list[GanttElement], figsize_or_ax: float | tuple[float] | AxisTy
     level = 0
 
     for element in data:
-        if type(element) is GanttSpan:
+        if type(element) is Span:
             add_span(fontsize, ax, level, element)
 
-        elif type(element) is GanttPeriod:
+        elif type(element) is Period:
             add_period(fontsize, ax, level, element)
 
-        elif type(element) is GanttEvent:
+        elif type(element) is Event:
             add_event(fontsize, ax, level, element)
 
         level += element.level_increment

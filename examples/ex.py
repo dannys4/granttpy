@@ -2,7 +2,6 @@
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
 import grantt
-from grantt import GanttSpan, GanttEvent, GanttPeriod
 
 grantt.set_default_markersize(80)
 grantt.set_default_linewidth(10)
@@ -26,14 +25,14 @@ local_lw = fontsize + 1  # Increase this with font size to ensure Periods cover 
 # %%
 
 milestone_data = [
-    GanttSpan(
+    grantt.Span(
         text='Milestones',
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color='k',
         level_increment=0.75),
 
-    GanttEvent(
+    grantt.Event(
         text='MS1',
         date=datetime(2026, 1, 1),
         color='k',
@@ -41,7 +40,7 @@ milestone_data = [
         offset=neg15day,
         textalignment=L),
 
-    GanttEvent(
+    grantt.Event(
         text='MS2',
         date=datetime(2026, 5, 1),
         color='k',
@@ -49,14 +48,14 @@ milestone_data = [
         offset=neg15day,
         textalignment=L),
 
-    GanttEvent(
+    grantt.Event(
         text='MS3',
         date=datetime(2026, 7, 1),
         color='k',
         offset=pos15day,
         textalignment=R),
 
-    GanttEvent(
+    grantt.Event(
         text='MS6',
         date=datetime(2027, 3, 1),
         color='k',
@@ -64,7 +63,7 @@ milestone_data = [
         offset=neg15day,
         textalignment=L),
 
-    GanttEvent(
+    grantt.Event(
         text='MS8',
         date=datetime(2027, 5, 1),
         color='k',
@@ -72,14 +71,14 @@ milestone_data = [
         offset=pos15day,
         textalignment=R),
 
-    GanttEvent(
+    grantt.Event(
         text='MS9',
         date=datetime(2027, 9, 1),
         color='k',
         offset=pos15day,
         textalignment=R),
 
-    GanttEvent(
+    grantt.Event(
         text='MS4',
         date=datetime(2026, 7, 1),
         color='k',
@@ -87,7 +86,7 @@ milestone_data = [
         offset=neg15day,
         textalignment=L),
 
-    GanttEvent(
+    grantt.Event(
         date=datetime(2026, 9, 1),
         text='MS5',
         color='k',
@@ -95,7 +94,7 @@ milestone_data = [
         offset=pos15day,
         textalignment=R),
 
-    GanttEvent(
+    grantt.Event(
         date=datetime(2027, 4, 1),
         text='MS7',
         color='k',
@@ -105,14 +104,14 @@ milestone_data = [
 ]
 
 wp1_data = [
-    GanttSpan(
+    grantt.Span(
         text="WP1: Lorem Ipsum",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=red,
         level_increment=0.75),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 1: Dolor Sit Amet",
         start=datetime(2025, 1, 1),
         end=datetime(2026, 7, 1),
@@ -121,7 +120,7 @@ wp1_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 2: consectetur adipiscing elit",
         start=datetime(2025, 7, 1),
         end=datetime(2026, 8, 1),
@@ -130,7 +129,7 @@ wp1_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 3: sed do eiusmod tempor",
         start=datetime(2025, 4, 1),
         end=datetime(2026, 9, 1),
@@ -139,7 +138,7 @@ wp1_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 4: incididunt ut labore",
         start=datetime(2025, 7, 1),
         end=datetime(2028, 1, 1),
@@ -147,7 +146,7 @@ wp1_data = [
         textalignment=C,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 5: et dolore magna aliqua",
         start=datetime(2025, 4, 1),
         end=datetime(2026, 4, 1),
@@ -156,7 +155,7 @@ wp1_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttEvent(
+    grantt.Event(
         text='D1.1',
         date=datetime(2026, 3, 1),
         color=red,
@@ -165,7 +164,7 @@ wp1_data = [
         textalignment=L,
         marker='.'),
 
-    GanttEvent(
+    grantt.Event(
         text='D1.2',
         date=datetime(2026, 7, 1),
         color=red,
@@ -174,7 +173,7 @@ wp1_data = [
         textalignment=L,
         marker='.'),
 
-    GanttEvent(
+    grantt.Event(
         text='D1.3',
         date=datetime(2026, 8, 1),
         color=red,
@@ -182,7 +181,7 @@ wp1_data = [
         textalignment=C,
         marker='.'),
 
-    GanttEvent(
+    grantt.Event(
         text='D1.4',
         date=datetime(2026, 9, 1),
         color=red,
@@ -191,7 +190,7 @@ wp1_data = [
         offset=pos15day,
         marker='.'),
 
-    GanttEvent(
+    grantt.Event(
         text='D1.5',
         date=datetime(2027, 9, 1),
         color=red,
@@ -202,14 +201,14 @@ wp1_data = [
 ]
 
 wp2_data = [
-    GanttSpan(
+    grantt.Span(
         text="WP2: Ut enim ad minim veniam",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=green,
         level_increment=0.75),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 1: quis nostrud exercitation",
         start=datetime(2025, 1, 1),
         end=datetime(2026, 1, 1),
@@ -218,7 +217,7 @@ wp2_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 2: ullamco laboris nisi",
         start=datetime(2026, 1, 1),
         end=datetime(2027, 1, 1),
@@ -227,7 +226,7 @@ wp2_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 3: ut aliquip ex ea",
         start=datetime(2025, 7, 1),
         end=datetime(2027, 7, 1),
@@ -236,7 +235,7 @@ wp2_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 4: commodo consequat",
         start=datetime(2026, 1, 1),
         end=datetime(2028, 1, 1),
@@ -245,7 +244,7 @@ wp2_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttEvent(
+    grantt.Event(
         text="D2.1",
         date=datetime(2026, 1, 1),
         color=green,
@@ -254,7 +253,7 @@ wp2_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D2.2",
         date=datetime(2027, 1, 1),
         color=green,
@@ -263,7 +262,7 @@ wp2_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D2.3",
         date=datetime(2027, 1, 1),
         color=green,
@@ -272,7 +271,7 @@ wp2_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D2.4",
         date=datetime(2027, 7, 1),
         color=green,
@@ -281,7 +280,7 @@ wp2_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D2.5",
         date=datetime(2027, 11, 1),
         color=green,
@@ -290,7 +289,7 @@ wp2_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D2.6",
         date=datetime(2027, 11, 1),
         color=green,
@@ -301,14 +300,14 @@ wp2_data = [
 ]
 
 wp3_data = [
-    GanttSpan(
+    grantt.Span(
         text="WP3: Duis aute irure",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=blue,
         level_increment=0.75),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 1: dolor in reprehenderit",
         start=datetime(2025, 1, 1),
         end=datetime(2026, 1, 1),
@@ -317,7 +316,7 @@ wp3_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 2: in voluptate velit",
         start=datetime(2025, 10, 1),
         end=datetime(2026, 4, 1),
@@ -326,7 +325,7 @@ wp3_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 3: esse cillum dolore",
         start=datetime(2026, 1, 1),
         end=datetime(2028, 1, 1),
@@ -336,7 +335,7 @@ wp3_data = [
         offset=timedelta(days=-20),
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 4: eu fugiat nulla pariatur",
         start=datetime(2026, 7, 1),
         end=datetime(2028, 1, 1),
@@ -346,7 +345,7 @@ wp3_data = [
         offset=timedelta(days=-20),
         lw=local_lw),
 
-    GanttEvent(
+    grantt.Event(
         text="D3.1",
         date=datetime(2026, 1, 1),
         color=blue,
@@ -355,7 +354,7 @@ wp3_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D3.2",
         date=datetime(2027, 4, 1),
         color=blue,
@@ -364,7 +363,7 @@ wp3_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D3.3",
         date=datetime(2027, 11, 1),
         color=blue,
@@ -375,14 +374,14 @@ wp3_data = [
 ]
 
 wp4_data = [
-    GanttSpan(
+    grantt.Span(
         text="WP4: Excepteur sint",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=orange,
         level_increment=0.75),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 1: occaecat cupidatat",
         start=datetime(2025, 4, 1),
         end=datetime(2027, 4, 1),
@@ -391,7 +390,7 @@ wp4_data = [
         offset=pos20day,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 2: non proident",
         start=datetime(2025, 7, 1),
         end=datetime(2027, 7, 1),
@@ -400,7 +399,7 @@ wp4_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 3: sunt in culpa",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
@@ -409,7 +408,7 @@ wp4_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttEvent(
+    grantt.Event(
         text="D4.1",
         date=datetime(2027, 4, 1),
         color=orange,
@@ -418,7 +417,7 @@ wp4_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D4.2",
         date=datetime(2027, 7, 1),
         color=orange,
@@ -429,28 +428,28 @@ wp4_data = [
 ]
 
 wp5_data = [
-    GanttSpan(
+    grantt.Span(
         text="WP5: qui officia deserunt",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=gray,
         level_increment=0.75),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 1: mollit anim",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=gray,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 2: id est",
         start=datetime(2025, 1, 1),
         end=datetime(2028, 1, 1),
         color=gray,
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 3: laborum",
         start=datetime(2025, 7, 1),
         end=datetime(2028, 1, 1),
@@ -459,7 +458,7 @@ wp5_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttPeriod(
+    grantt.Period(
         text="Task 4: Lorem ipsum",
         start=datetime(2025, 10, 1),
         end=datetime(2028, 1, 1),
@@ -468,7 +467,7 @@ wp5_data = [
         offset=timedelta(days=0),
         lw=local_lw),
 
-    GanttEvent(
+    grantt.Event(
         text="D5.1",
         date=datetime(2025, 5, 1),
         color=gray,
@@ -477,7 +476,7 @@ wp5_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D5.2",
         date=datetime(2025, 6, 1),
         color=gray,
@@ -486,7 +485,7 @@ wp5_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D5.3",
         date=datetime(2025, 7, 1),
         color=gray,
@@ -495,7 +494,7 @@ wp5_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D5.4",
         date=datetime(2026, 1, 1),
         color=gray,
@@ -504,7 +503,7 @@ wp5_data = [
         marker=".",
         level_increment=0),
 
-    GanttEvent(
+    grantt.Event(
         text="D5.5",
         date=datetime(2027, 7, 1),
         color=gray,
