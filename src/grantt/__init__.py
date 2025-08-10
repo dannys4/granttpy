@@ -105,9 +105,12 @@ class Element:
     text: str
     offset: timedelta
     v_offset: float
+    style: str  # See plt.text.style
+    weight: str  # See plt.text.weight
 
-    def __init__(self, text: str, color: str, textalignment: str = 'center', zorder_delta: float = 0., textcolor: str = None, level_increment: float = 0.5, offset: timedelta = timedelta(0), v_offset: float = 0.):
-        textcolor = textcolor or DEFAULT_TEXTCOLOR
+    def __init__(self, text: str, color: str, textalignment: str = 'center', zorder_delta: float = 0., textcolor: str = None, level_increment: float = 0.5, offset: timedelta = timedelta(0), v_offset: float = 0., style='normal', weight='normal'):
+        if textcolor is None:
+            textcolor = DEFAULT_TEXTCOLOR
         self.textalignment = get_text_align(textalignment)
         self.textcolor = to_rgba(textcolor)
         self.elementcolor = to_rgba(color)
@@ -119,6 +122,8 @@ class Element:
         self.offset = offset
         self.zorder_delta = zorder_delta
         self.v_offset = v_offset
+        self.style = style
+        self.weight = weight
 
 
 @dataclass
@@ -126,13 +131,16 @@ class Span(Element):
     start: datetime
     end: datetime
     edge_height: float
+    lw: float
 
-    def __init__(self, start: datetime, end: datetime, text: str, color: str, edge_height: float = None, **kwargs):
-        edge_height = edge_height or DEFAULT_SPAN_EDGE_HEIGHT
+    def __init__(self, start: datetime, end: datetime, text: str, color: str, lw: float = None, edge_height: float = None, **kwargs):
+        if edge_height is None:
+            edge_height = DEFAULT_SPAN_EDGE_HEIGHT
         super().__init__(text, color, **kwargs)
         self.start = start
         self.end = end
         self.edge_height = edge_height
+        self.lw = lw
 
 
 @dataclass
@@ -140,9 +148,11 @@ class Period(Element):
     start: datetime
     end: datetime
     lw: float
+    ls: str
 
-    def __init__(self, start: datetime, end: datetime, text: str, color: str, lw: float = None, **kwargs):
-        lw = lw or DEFAULT_LINEWIDTH
+    def __init__(self, start: datetime, end: datetime, text: str, color: str, lw: float = None, ls: str = 'solid', **kwargs):
+        if lw is None:
+            lw = DEFAULT_LINEWIDTH
         # Color determines the background of the text
         super().__init__(text, color, **kwargs)
         if 'textcolor' not in kwargs:
@@ -150,6 +160,7 @@ class Period(Element):
         self.start = start
         self.end = end
         self.lw = lw
+        self.ls = ls
 
 
 @dataclass
@@ -159,8 +170,10 @@ class Event(Element):
     markersize: float
 
     def __init__(self, date: datetime, text: str, marker: str = None, markersize: float = None, **kwargs):
-        marker = marker or DEFAULT_MARKER
-        markersize = markersize or DEFAULT_MARKERSIZE
+        if marker is None:
+            marker = DEFAULT_MARKER
+        if markersize is None:
+            markersize = DEFAULT_MARKERSIZE
         super().__init__(text, **kwargs)
         self.date = date
         self.marker = marker
@@ -180,7 +193,7 @@ def get_fig_ax(figsize_or_ax):
     return fig, ax
 
 
-def add_quarters(ax: AxisType):
+def add_quarters(ax: AxisType, fontsize: float):
     dayloc = matplotlib.dates.MonthLocator(bymonth=(1, 4, 7, 10), bymonthday=1)
     ax.xaxis.set_major_locator(dayloc)
     ax.xaxis.set_major_formatter(matplotlib.dates.DateFormatter('%Y-%m-%d'))
@@ -202,7 +215,7 @@ def add_quarters(ax: AxisType):
             ticks.append("Q4" + "\n" + text[0])
 
     if len(ticks) > 0:
-        ax.set_xticklabels(ticks)
+        ax.set_xticklabels(ticks, fontsize=fontsize)
 
 
 def add_span(fontsize: float, ax: AxisType, level: float, span: Span):
@@ -211,21 +224,26 @@ def add_span(fontsize: float, ax: AxisType, level: float, span: Span):
         [level, level],
         color=span.elementcolor,
         solid_capstyle='round',
-        zorder=10 + span.zorder_delta)
+        zorder=10 + span.zorder_delta,
+        lw=span.lw
+    )
 
-    ax.plot(
-        [span.start, span.start],
-        [level-span.edge_height, level+span.edge_height],
-        color=span.elementcolor,
-        solid_capstyle='round',
-        zorder=10 + span.zorder_delta)
+    if span.edge_height > 0.:
+        ax.plot(
+            [span.start, span.start],
+            [level-span.edge_height, level+span.edge_height],
+            color=span.elementcolor,
+            zorder=10 + span.zorder_delta,
+            lw=span.lw
+        )
 
-    ax.plot(
-        [span.end, span.end],
-        [level-span.edge_height, level+span.edge_height],
-        color=span.elementcolor,
-        solid_capstyle='round',
-        zorder=10 + span.zorder_delta)
+        ax.plot(
+            [span.end, span.end],
+            [level-span.edge_height, level+span.edge_height],
+            color=span.elementcolor,
+            zorder=10 + span.zorder_delta,
+            lw=span.lw
+        )
 
     ax.text(
         (span.end - span.start) /
@@ -237,7 +255,10 @@ def add_span(fontsize: float, ax: AxisType, level: float, span: Span):
         color=span.textcolor,
         backgroundcolor="w",
         fontsize=fontsize,
-        zorder=30)
+        zorder=30,
+        style=span.style,
+        weight=span.weight
+    )
 
 
 def add_period(fontsize: float, ax: AxisType, level: float, period: Period):
@@ -245,6 +266,7 @@ def add_period(fontsize: float, ax: AxisType, level: float, period: Period):
         [period.start, period.end],
         [level, level],
         lw=period.lw,
+        ls=period.ls,
         color=period.elementcolor,
         solid_capstyle='round',
         zorder=10 + period.zorder_delta)
@@ -260,7 +282,9 @@ def add_period(fontsize: float, ax: AxisType, level: float, period: Period):
         va="center",
         color=period.textcolor,
         fontsize=fontsize,
-        zorder=30)
+        zorder=30,
+        style=period.style,
+        weight=period.weight)
 
 
 def add_event(fontsize: float, ax: AxisType, level: float, event: Event):
@@ -283,7 +307,9 @@ def add_event(fontsize: float, ax: AxisType, level: float, event: Event):
         va="center",
         color=event.textcolor,
         fontsize=fontsize,
-        zorder=30)
+        zorder=30 + event.zorder_delta,
+        style=event.style,
+        weight=event.weight)
 
 
 def get_textpos_period(element: Period):
@@ -377,7 +403,7 @@ def chart(data: list[Element], figsize_or_ax: float | tuple[float] | AxisType, f
         level += element.level_increment
 
     # Set quarterly ticks
-    add_quarters(ax)
+    add_quarters(ax, fontsize)
     if fig is None:
         return
 
